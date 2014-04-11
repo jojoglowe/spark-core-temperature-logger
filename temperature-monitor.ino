@@ -611,12 +611,12 @@ void loop() {
 float getTemp() {
     uint8_t rom[8];
     uint8_t resp[9];
-    
+
     // Get the ROM address
     one.reset();
     one.write(0x33);
     one.read_bytes(rom, 8);
-    
+
     // Get the temp
     one.reset();
     one.write(0x55);
@@ -628,11 +628,11 @@ float getTemp() {
     one.write_bytes(rom, 8);
     one.write(0xBE);
     one.read_bytes(resp, 9);
-    
+
     byte MSB = resp[1];
     byte LSB = resp[0];
-    
-    float tempRead = ((MSB << 8) | LSB); //using two's compliment
-    float TemperatureSum = tempRead / 16;
+
+    int16_t tempRead = ((MSB << 8) | LSB); //using two's compliment
+    float TemperatureSum = (float)tempRead / 16;
     return TemperatureSum;
 }
