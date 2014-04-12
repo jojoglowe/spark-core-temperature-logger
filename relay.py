@@ -24,3 +24,6 @@ while True:
     print "504 Server error. Trying again in a minute."
     time.sleep(60)
     spark_messages = SSEClient("https://api.spark.io/v1/devices/%s/events/?access_token=%s" % (spark_core_id, spark_core_token))
+  except librato.exceptions.BadRequest:
+    print "Librato error. Trying again in a minute."
+    time.sleep(60)
